@@ -18,8 +18,8 @@
 package main
 
 import (
-   "os"
    "fmt"
+   "os"
    "path"
    "runtime"
    "syscall"

@@ -20,7 +20,6 @@ package main
 import (
    "flag"
    "fmt"
-   "io/ioutil"
    "os"
    "strconv"
    "strings"
@@ -100,7 +99,7 @@ func usage() {
 }
 
 func exclusive() {
-   content, err := ioutil.ReadFile(pidPath)
+   content, err := os.ReadFile(pidPath)
 
    if err == nil {
       pid, err := strconv.Atoi(strings.TrimSpace(string(content)))
@@ -116,7 +115,7 @@ func exclusive() {
    }
 
    pidStr := strconv.Itoa(os.Getpid())+"\n"
-   err = ioutil.WriteFile(pidPath, []byte(pidStr), 0644)
+   err = os.WriteFile(pidPath, []byte(pidStr), 0644)
    validate(err)
 }
 
@@ -163,9 +162,10 @@ func main() {
       os.Exit(0)
    }
 
-   // expected to fail if already exists
    unix.Umask(0)
-   unix.Mkfifo(fifoPath, 0666)
+
+   // expected to fail if already exists
+   _ = unix.Mkfifo(fifoPath, 0666)
 
    var err error
    fifo, err = unix.Open(fifoPath, unix.O_RDONLY|unix.O_NONBLOCK, 0)

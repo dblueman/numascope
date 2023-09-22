@@ -19,10 +19,11 @@ package main
 
 import (
    "bytes"
-   "os/exec"
-   "fmt"
    "encoding/json"
+   "fmt"
+   "io"
    "os"
+   "os/exec"
    "os/signal"
    "path"
    "strconv"
@@ -52,7 +53,7 @@ func fileStop() {
    }
 
    // trim trailing ','
-   _, err := file.Seek(-2, os.SEEK_CUR)
+   _, err := file.Seek(-2, io.SeekCurrent)
    validate(err)
 
    _, err = file.WriteString("\n]\n")
@@ -89,7 +90,7 @@ again:
 
    validate(err)
 
-   header := fmt.Sprintf("[[\"%s\",%d,%d],\n", present[0].Name(), present[0].Sources(), present[0].Rate())
+   header := fmt.Sprintf(`[["%s",%d,%d],\n`, present[0].Name(), present[0].Sources(), present[0].Rate())
    _, err = file.WriteString(header)
    validate(err)
 

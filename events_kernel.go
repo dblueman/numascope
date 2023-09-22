@@ -233,7 +233,9 @@ func (d *Kernel) Sample() []int64 {
    d.lastElapsed = current
 
    // get EOF with SeekAt
-   d.file.Seek(0, 0)
+   _, err := d.file.Seek(0, 0)
+   validate(err)
+
    n, err := d.file.Read(buf)
    validate(err)
 

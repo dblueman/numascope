@@ -218,7 +218,7 @@ func state(desc string, state bool) {
    panic("event '"+desc+"' not found")
 }
 
-func toggle(desc string, val string) {
+func toggle(desc, val string) {
    switch (val) {
    case "on":
       state(desc, true)
