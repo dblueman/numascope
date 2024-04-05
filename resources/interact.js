@@ -1,4 +1,4 @@
-/*  Copyright (C) 2019 Daniel J Blueman
+/*  Copyright (C) 2024 Daniel J Blueman
     This file is part of Numascope.
 
     Numascope is free software: you can redistribute it and/or modify
@@ -48,7 +48,7 @@ const defaultTraces = {
 }
 
 const layout = {
-   height: 600,
+   height: 800,
    xaxis: {
       rangeslider: {},
       hoverformat: '%H:%M:%S.%3f'
@@ -466,16 +466,24 @@ function parse(file) {
    subtree.appendChild(button('all', false))
 
    const totals = []
+   let eventFilterRegexp
+
+   if (document.getElementById('eventFilter').value != '') {
+      eventFilterRegexp = new RegExp(document.getElementById('eventFilter').value)
+   }
 
    for (const heading of headings) {
+      const visible = (eventFilterRegexp !== undefined && !eventFilterRegexp.test(heading)) ? false :
+         heading.includes(defaultTraces[technology]) ? true : 'legendonly'
+
       data.push({
          name: heading,
-         type: 'scatter',
+         type: 'scattergl',
          mode: 'lines',
          hoverlabel: {namelength: 80},
          x: [], y: [],
          yaxis: (heading[0] == '%') ? 'y2' : 'y1',
-         visible: heading.includes(defaultTraces[technology]) ? 'true' : 'legendonly'
+         visible: visible
       })
 
       subtree.appendChild(button(heading, true))
