@@ -5,15 +5,13 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="bootstrap.min.css">
-   <script src="jquery.slim.min.js"></script>
-   <script src="popper.min.js"></script>
-   <script src="bootstrap.min.js"></script>
    <script src="plotly-gl2d.min.js" defer></script>
    <script src="interact.js" defer></script>
 </head>
 <body>
 <div class="alert alert-info fade show" role="alert" id="loading">
 Loading model...
+   <script src="bootstrap.bundle.min.js"></script>
 </div>
 <div class="alert alert-warning fade show" style="display: none; overflow: auto;" role="alert" id="connecting">
    Connection lost
@@ -23,32 +21,26 @@ Loading model...
 <div class="container" style="margin: 15px 0px 15px 0px">
    <div class="row text-center">
    <div class="col-sm-2 btn-group btn-group-toggle" style="height: 100%;" data-toggle="buttons">
-      <label class="btn btn-primary active" onclick="play()">
-         <input type="radio" name="options" id="btn-play" autocomplete="off" checked> &#9654;
-      </label>
-      <label class="btn btn-primary" onclick="pause()">
-         <input type="radio" name="options" id="btn-pause" autocomplete="off"> &#9646;&#9646;
-      </label>
-      <label class="btn btn-primary" onclick="halt()">
-         <input type="radio" name="options" id="btn-stop" autocomplete="off"> &#9724;
-      </label>
+      <button type="button" id="btn-play" class="btn btn-primary active" onclick="play()" checked> &#9654;</button>
+      <button type="button" id="btn-pause" class="btn btn-primary" onclick="pause()"> &#9646;&#9646;</button>
+      <button type="button" id="btn-stop" class="btn btn-primary" onclick="halt()"> &#9724;</button>
    </div>
    <div class="col-sm-4">
-      <label>Resolution <input type="range" class="custom-range" min="0" max="16" value="6" id="data-interval" oninput="slider(this)" style="width: 100px;vertical-align: middle"></label> 256ms</div>
-   <div class="col-sm-1 custom-control custom-switch">
-      <input type="checkbox" checked class="custom-control-input" id="serverGroup" onclick="serverGroupChange(this)">
+      <label>Resolution <input type="range" class="form-range" min="0" max="16" value="6" id="data-interval" oninput="slider(this)" style="width: 100px;vertical-align: middle"></label> 256ms</div>
+   <div class="col-sm-1 form-check form-switch">
+      <input type="checkbox" checked class="form-check-input" id="serverGroup" onclick="serverGroupChange(this)">
       <label class="custom-control-label" for="serverGroup">servers</label>
    </div>
-   <div class="col-sm-1 custom-control custom-switch">
-      <input type="checkbox" checked class="custom-control-input" id="portGroup" onclick="portGroupChange(this)">
+   <div class="col-sm-1 form-check form-switch">
+      <input type="checkbox" checked class="form-check-input" id="portGroup" onclick="portGroupChange(this)">
       <label class="custom-control-label" for="portGroup">ports</label>
    </div>
-   <div class="col-sm-1 custom-control custom-switch">
-      <input type="checkbox" checked class="custom-control-input" id="unitGroup" onclick="unitGroupChange(this)">
+   <div class="col-sm-1 form-check form-switch">
+      <input type="checkbox" checked class="form-check-input" id="unitGroup" onclick="unitGroupChange(this)">
       <label class="custom-control-label" for="unitGroup">units</label>
    </div>
    <div class="col-sm-1">
-    <label class="btn btn-primary btn-sm" onchange="load(childNodes[1].files[0])">
+    <label class="btn btn-primary" onchange="load(childNodes[1].files[0])">
         Load <input type="file" style="display: none">
     </label>
    </div>
