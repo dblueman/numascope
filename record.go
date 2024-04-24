@@ -90,7 +90,7 @@ again:
 
    validate(err)
 
-   header := fmt.Sprintf(`[["%s",%d,%d],\n`, present[0].Name(), present[0].Sources(), present[0].Rate())
+   header := fmt.Sprintf("[[\"%s\",%d,%d],\n", present[0].Name(), present[0].Sources(), present[0].Rate())
    _, err = file.WriteString(header)
    validate(err)
 
