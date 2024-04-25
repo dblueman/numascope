@@ -122,8 +122,8 @@ function enabled(msg) {
    for (let btn of buttons)
       btn.className = subset(msg.Enabled, btn.firstChild.nodeValue) ? 'btn btn-primary btn-sm m-1' : 'btn btn-light btn-sm m-1'
 
-   let data = []
    let total = 0
+   const data = []
 
    for (const sensor in msg.Enabled)
       total += msg.Enabled[sensor].length * (discrete ? sources[sensor] : 1)
@@ -441,7 +441,7 @@ function parse(file) {
       json.unshift(['UNC', 8, 850000000])
    }
 
-   let technology = json[0][0]
+   const technology = json[0][0]
 
    switch(technology) {
    case 'NumaConnect2':
@@ -560,6 +560,7 @@ function load(file) {
 
    const reader = new FileReader()
    reader.onload = parse
+   reader.onerror = () => { alert('Loading failed - ' + reader.error) }
    reader.readAsText(file)
    document.title = file.name+' - numascope'
 }
