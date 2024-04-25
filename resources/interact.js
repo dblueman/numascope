@@ -80,13 +80,13 @@ function connect() {
    socket = new WebSocket('ws://'+location.host+'/monitor')
 
    socket.onmessage = receive
-   socket.onopen = function(e) {
+   socket.onopen = function() {
       signedon = false
       socket.send('463ba1974b06')
    }
 
-   socket.onclose = function(e) {
-      $('#connecting').show()
+   socket.onclose = function() {
+      document.getElementById('connecting').show()
    }
 }
 
@@ -122,11 +122,11 @@ function enabled(msg) {
    for (let btn of buttons)
       btn.className = subset(msg.Enabled, btn.firstChild.nodeValue) ? 'btn btn-primary btn-sm m-1' : 'btn btn-light btn-sm m-1'
 
-   let total = 0
+//   let total = 0
    const data = []
 
-   for (const sensor in msg.Enabled)
-      total += msg.Enabled[sensor].length * (discrete ? sources[sensor] : 1)
+//   for (const sensor in msg.Enabled)
+//      total += msg.Enabled[sensor].length * (discrete ? sources[sensor] : 1)
 
    for (const sensor in msg.Enabled) {
       for (const heading of msg.Enabled[sensor]) {
@@ -313,8 +313,8 @@ function reduce(ents) {
 }
 
 function signon(elem) {
-   $('#connecting').hide()
-   $('#loading').hide()
+   document.getElementById('connecting').hide()
+   document.getElementById('loading').hide()
 
    sources = elem.Sources
    reset()
@@ -560,7 +560,7 @@ function load(file) {
 
    const reader = new FileReader()
    reader.onload = parse
-   reader.onerror = () => { alert('Loading failed - ' + reader.error) }
+   reader.onerror = () => { alert('Loading failed - check file ownership/permission') }
    reader.readAsText(file)
    document.title = file.name+' - numascope'
 }
